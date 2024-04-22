@@ -1,0 +1,17 @@
+{
+	"name": "parser",
+	"version": "1.0.0",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"author": "zmorok",
+	"license": "ISC",
+	"description": "My first parser for https://ru.whoscored.com/Statistics",
+	"dependencies": {
+		"fs": "^0.0.1-security",
+		"path": "^0.12.7",
+		"puppeteer": "^22.6.5"
+	},
+	"devDependencies": {}
+}
