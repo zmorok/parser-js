@@ -1,7 +1,7 @@
-// загрузка модулей для работы с файловой системой, путями и api браузера
 const fs = require('fs')
 const puppeteer = require('puppeteer')
 const path = require('path')
+const readline = require('readline')
 
 ;(async () => {
 	const browser = await puppeteer.launch({ headless: false })
@@ -12,11 +12,16 @@ const path = require('path')
 	await page.waitForSelector('.css-gweyaj')
 	await page.click('.css-gweyaj')
 
+	const time = new Date()
+	const currentDate = 'date ' + time.toLocaleDateString().replace(/\./g, '-')
+	const currentTime = 'time ' + time.toLocaleTimeString().replace(/:/g, '.')
+
 	let localeDate =
-		'Запись данных на ' +
-		new Date().toLocaleDateString() +
+		'  Запись на ' +
+		currentDate +
 		'  |  ' +
-		new Date().toLocaleTimeString() +
+		currentTime +
+		'\tparsed from https://ru.whoscored.com/Statistics' +
 		'\n\n'
 
 	// путь к папке "files" и создание его, если он не существует
@@ -26,9 +31,31 @@ const path = require('path')
 	}
 	const filename = path.join(
 		folderPath,
-		new Date().toLocaleDateString() + '.txt'
+		currentDate + '; ' + currentTime + '.txt'
 	)
 	fs.writeFile(filename, localeDate, err => {
+		if (err) throw err
+	})
+
+	// "шапка" для файла
+	let header = await page.evaluate(() => {
+		let table = document.querySelector(
+			'#statistics-team-table-summary > .semi-attached-table > table'
+		)
+		let headerOfTable = Array.from(
+			table.querySelectorAll('thead > tr'),
+			el => el.innerText
+		)
+		headerOfTable = headerOfTable.map(el => el.replace(/\n|\t|\r/g, ','))
+		headerOfTable = headerOfTable.map(el => {
+			let columns = el.split(',')
+			return columns.map(column => column.padEnd(28)).join(' | ')
+		})
+		return headerOfTable.join('\n')
+	})
+	header += '\n'
+
+	fs.appendFile(filename, header, err => {
 		if (err) throw err
 	})
 
@@ -70,4 +97,14 @@ const path = require('path')
 
 	// закрытие браузера
 	await browser.close()
+
+	// создание интерфейса для ввода с консоли и ожидание нажатия клавиши
+	const rl = readline.createInterface({
+		input: process.stdin,
+		output: process.stdout,
+	})
+
+	rl.question('Нажмите клавишу Enter для выхода...', () => {
+		rl.close()
+	})
 })()

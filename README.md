@@ -2,6 +2,7 @@
 
 This is my first parser on JavaScript!
 
-- To install, enter `npm i` in terminal of project;
-- Than, enter `node index` to run parser;
+_Parser needs [NodeJS](https://nodejs.org/en/)_
+
+- To run, run `start.bat`;
 - Parser will take info from https://ru.whoscored.com/Statistics and write it into file into directory **files**.
