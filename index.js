@@ -4,7 +4,7 @@ const path = require('path')
 const readline = require('readline')
 
 ;(async () => {
-	const browser = await puppeteer.launch()
+	const browser = await puppeteer.launch({ headless: false, product: 'chrome' })
 	const page = await browser.newPage()
 	await page.goto('https://ru.whoscored.com/Statistics')
 

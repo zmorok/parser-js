@@ -1,6 +1,6 @@
 {
 	"name": "parser",
-	"version": "1.0.0",
+	"version": "1.1.0",
 	"main": "index.js",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1"
@@ -13,5 +13,13 @@
 		"path": "^0.12.7",
 		"puppeteer": "^22.6.5"
 	},
-	"devDependencies": {}
+	"devDependencies": {},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/zmorok/parser-js.git"
+	},
+	"bugs": {
+		"url": "https://github.com/zmorok/parser-js/issues"
+	},
+	"homepage": "https://github.com/zmorok/parser-js#readme"
 }
