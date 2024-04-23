@@ -4,7 +4,7 @@ const path = require('path')
 const readline = require('readline')
 
 ;(async () => {
-	const browser = await puppeteer.launch({ headless: false })
+	const browser = await puppeteer.launch()
 	const page = await browser.newPage()
 	await page.goto('https://ru.whoscored.com/Statistics')
 
@@ -84,8 +84,8 @@ const readline = require('readline')
 		await page.waitForSelector('#next')
 		await page.click('#next')
 
-		// ожидание 200мс для прогрузки контента
-		await new Promise(resolve => setTimeout(resolve, 200))
+		// ожидание 650мс для прогрузки контента
+		await new Promise(resolve => setTimeout(resolve, 650))
 	}
 
 	// перепределение data как строка из предыдущего массива
